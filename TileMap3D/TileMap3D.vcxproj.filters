@@ -8,35 +8,137 @@
       <UniqueIdentifier>672ec9e0-f0a0-40f5-b0c7-6e95fabc1cf0</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dds;dlg;fbx;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{f89cb442-6177-4186-a414-0d81ec99a29d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Icons">
+      <UniqueIdentifier>{a9f2a4d2-d4b6-40c3-b565-ff9463151723}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{8bd825fa-5d63-454d-b459-bf3dda547dd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{1b2553e5-c8c1-4f0e-a463-60ddee7207eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\DebugTools">
+      <UniqueIdentifier>{e9a9c445-ec0c-4083-94c6-bafd19f07ea8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="StepTimer.h">
+    <ClInclude Include="Common\DeviceResources.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="DeviceResources.h">
+    <ClInclude Include="Common\StepTimer.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameObject.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\ISceneBuilder.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Scene.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\SceneManager.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Transform.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Game.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\GameContext.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\SceneCommons.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\BaseScene.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\BuildSettings.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\DebugTools\DebugCameraWrapper.h">
+      <Filter>Framework\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\DebugTools\GridFloorWrapper.h">
+      <Filter>Framework\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\DebugTools\DebugCamera.h">
+      <Filter>Framework\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\DebugTools\GridFloor.h">
+      <Filter>Framework\DebugTools</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TiledMap.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CubeMap.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="DeviceResources.cpp">
+    <ClCompile Include="Common\DeviceResources.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Scene.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\SceneManager.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Transform.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Game.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\SceneCommons.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\BaseScene.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\BuildSettings.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\DebugTools\GridFloorWrapper.cpp">
+      <Filter>Framework\DebugTools</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\DebugTools\DebugCameraWrapper.cpp">
+      <Filter>Framework\DebugTools</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\DebugTools\GridFloor.cpp">
+      <Filter>Framework\DebugTools</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\DebugTools\DebugCamera.cpp">
+      <Filter>Framework\DebugTools</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TiledMap.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CubeMap.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="resource.rc" />
+    <ResourceCompile Include="Resources\Icons\resource.rc">
+      <Filter>Resources\Icons</Filter>
+    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="directx.ico">
-      <Filter>Assets</Filter>
+      <Filter>Resources\Icons</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="settings.manifest">
+    <Manifest Include="Resources\settings.manifest">
       <Filter>Assets</Filter>
     </Manifest>
   </ItemGroup>
