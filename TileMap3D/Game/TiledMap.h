@@ -9,7 +9,7 @@ private:
 public:
 	bool Load(const std::wstring& filename);
 	std::vector<std::vector<int>>& GetData();
-	int GetRow() { return 10; }
-	int GetColumn() { return 10; }
+	int GetRow();
+	int GetColumn();
 };
 
