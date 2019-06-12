@@ -86,10 +86,7 @@ void CubeMap::Render(GameContext & context)
 		ctx->IASetInputLayout(m_pInputLayout.Get());
 	}
 
-	int ROW = m_tiledMap->GetRow();
-	int COLUMN = m_tiledMap->GetColumn();
-	auto& data = m_tiledMap->GetData();
-	auto mat = transform.GetMMatrix() * Matrix::CreateTranslation(Vector3(.5, 0, .5)) * Matrix::CreateTranslation(Vector3(-5, 0, -5)) * Matrix::CreateScale(Vector3(1.f, .2f, 1.f));
+	auto mat = transform.GetMMatrix() * Matrix::CreateTranslation(Vector3(.5, 0, .5)) * Matrix::CreateTranslation(Vector3(-4, 0, -4)) * Matrix::CreateScale(Vector3(1.f, .2f, 1.f));
 
 	//float floatingY = (std::sin(context.GetTimer().GetTotalSeconds()) + 1) / 2 * .2f;
 	float floatingY = .2f;
@@ -97,23 +94,42 @@ void CubeMap::Render(GameContext & context)
 	m_pBasicEffect->SetDiffuseColor(SimpleMath::Vector3(0.0f, 0.0f, 0.0f));
 	m_pBasicEffect->SetTexture(m_textures[-2].Get());
 	//m_pBasicEffect->SetColorAndAlpha(Colors::White);
-	m_pBasicEffect->SetWorld(Matrix::CreateScale(Vector3(10.f, .18f, 10.f)));
+	m_pBasicEffect->SetWorld(Matrix::CreateScale(Vector3(8.f, .18f, 8.f)));
 	m_pGeometricPrimitive->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
 
-	for (int iy = 0; iy < ROW; iy++)
 	{
-		for (int ix = 0; ix < COLUMN; ix++)
+		int row = m_tiledMap->GetRow();
+		int column = m_tiledMap->GetColumn();
+		auto& data = m_tiledMap->GetData();
+		for (int iy = 0; iy < row; iy++)
 		{
-			int& id = data[iy][ix];
-			m_pBasicEffect->SetDiffuseColor(SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
-			m_pBasicEffect->SetTexture(m_textures[id].Get());
-			m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(ix, 0, iy)));
-			m_pGeometricPrimitive->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
-
-			m_pBasicEffect->SetDiffuseColor(id == -1 ? SimpleMath::Vector3(0.0f, 0.0f, 0.0f) : SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
-			m_pBasicEffect->SetTexture(m_textures[-2].Get());
-			m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(ix, floatingY, iy)));
-			m_pGeometricPrimitiveFloating->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
+			for (int ix = 0; ix < column; ix++)
+			{
+				int& id = data[iy][ix];
+				m_pBasicEffect->SetDiffuseColor(SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
+				m_pBasicEffect->SetTexture(m_textures[id].Get());
+				m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(ix, 0, iy)));
+				m_pGeometricPrimitive->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
+			}
+		}
+	}
+	{
+		int row = m_tiledStone->GetRow();
+		int column = m_tiledStone->GetColumn();
+		auto& data = m_tiledStone->GetData();
+		for (int iy = 0; iy < row; iy++)
+		{
+			for (int ix = 0; ix < column; ix++)
+			{
+				int& id = data[iy][ix];
+				if (id != 0)
+				{
+					m_pBasicEffect->SetDiffuseColor(id == 1 ? SimpleMath::Vector3(0.0f, 0.0f, 0.0f) : SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
+					m_pBasicEffect->SetTexture(m_textures[-2].Get());
+					m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(ix, floatingY, iy)));
+					m_pGeometricPrimitiveFloating->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
+				}
+			}
 		}
 	}
 }

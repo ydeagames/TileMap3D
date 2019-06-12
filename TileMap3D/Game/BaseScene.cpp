@@ -19,5 +19,7 @@ void BaseScene::Build(GameContext& context)
 
 	auto tiledmap = std::make_shared<TiledMap>();
 	tiledmap->Load(L"map.csv");
-	context << std::make_shared<CubeMap>(tiledmap);
+	auto tiledstone = std::make_shared<TiledMap>();
+	tiledstone->Load(L"stone.csv");
+	context << std::make_shared<CubeMap>(tiledmap, tiledstone);
 }

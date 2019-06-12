@@ -6,6 +6,7 @@ class CubeMap : public GameObject
 {
 	// マップ
 	std::shared_ptr<TiledMap> m_tiledMap;
+	std::shared_ptr<TiledMap> m_tiledStone;
 	// ジオメトリプリミティブ
 	std::unique_ptr<DirectX::GeometricPrimitive> m_pGeometricPrimitive;
 	std::unique_ptr<DirectX::GeometricPrimitive> m_pGeometricPrimitiveFloating;
@@ -17,8 +18,9 @@ class CubeMap : public GameObject
 	std::unordered_map<int, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_textures;
 
 public:
-	CubeMap(const std::shared_ptr<TiledMap>& tiledMap)
-		: m_tiledMap(tiledMap) {}
+	CubeMap(const std::shared_ptr<TiledMap>& tiledMap, const std::shared_ptr<TiledMap>& tiledStone)
+		: m_tiledMap(tiledMap)
+		, m_tiledStone(tiledStone) {}
 
 public:
 	// 生成
