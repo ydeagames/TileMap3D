@@ -8,6 +8,7 @@ class CubeMap : public GameObject
 	std::shared_ptr<TiledMap> m_tiledMap;
 	// ジオメトリプリミティブ
 	std::unique_ptr<DirectX::GeometricPrimitive> m_pGeometricPrimitive;
+	std::unique_ptr<DirectX::GeometricPrimitive> m_pGeometricPrimitiveFloating;
 	// エフェクト
 	std::unique_ptr<DirectX::BasicEffect> m_pBasicEffect;
 	// 入力レイアウト

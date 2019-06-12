@@ -12,6 +12,7 @@ void CubeMap::Initialize(GameContext& context)
 	auto ctx = context.GetDR().GetD3DDeviceContext();
 
 	m_pGeometricPrimitive = DirectX::GeometricPrimitive::CreateBox(ctx, Vector3::One);
+	m_pGeometricPrimitiveFloating = DirectX::GeometricPrimitive::CreateGeoSphere(ctx);
 
 	// BasicEffect
 	{
@@ -21,6 +22,8 @@ void CubeMap::Initialize(GameContext& context)
 		m_pBasicEffect->SetTextureEnabled(true);
 		// ライト有効
 		m_pBasicEffect->SetLightingEnabled(true);
+		// 頂点色
+		//m_pBasicEffect->SetVertexColorEnabled(true);
 		// 環境光の色を設定
 		m_pBasicEffect->SetAmbientLightColor(SimpleMath::Vector3(0.2f, 0.2f, 0.2f));
 		// 拡散反射光の素材色を設定
@@ -37,6 +40,10 @@ void CubeMap::Initialize(GameContext& context)
 		//// シェーダー取得
 		//m_pBasicEffect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
 		//// 入力レイアウトの作成（頂点データの定義する）
+		//device->CreateInputLayout(VertexPositionNormalColorTexture::InputElements,
+		//	VertexPositionNormalColorTexture::InputElementCount,
+		//	shaderByteCode, byteCodeLength,
+		//	m_pInputLayout.GetAddressOf());
 		//device->CreateInputLayout(GeometricPrimitive::VertexType::InputElements,
 		//	GeometricPrimitive::VertexType::InputElementCount,
 		//	shaderByteCode, byteCodeLength,
@@ -45,6 +52,7 @@ void CubeMap::Initialize(GameContext& context)
 		m_pGeometricPrimitive->CreateInputLayout(m_pBasicEffect.get(), m_pInputLayout.GetAddressOf());
 	}
 
+	CreateWICTextureFromFile(device, L"Resources/Textures/white.png", nullptr, m_textures[-2].GetAddressOf());
 	CreateWICTextureFromFile(device, L"Resources/Textures/CorkBoard.png", nullptr, m_textures[-1].GetAddressOf());
 	CreateWICTextureFromFile(device, L"Resources/Textures/grass.png", nullptr, m_textures[0].GetAddressOf());
 	CreateWICTextureFromFile(device, L"Resources/Textures/water.png", nullptr, m_textures[1].GetAddressOf());
@@ -81,22 +89,31 @@ void CubeMap::Render(GameContext & context)
 	int ROW = m_tiledMap->GetRow();
 	int COLUMN = m_tiledMap->GetColumn();
 	auto& data = m_tiledMap->GetData();
-	auto mat = transform.GetMMatrix() * Matrix::CreateTranslation(Vector3(.5, 0, .5)) * Matrix::CreateTranslation(Vector3(-5, 0, -5));
+	auto mat = transform.GetMMatrix() * Matrix::CreateTranslation(Vector3(.5, 0, .5)) * Matrix::CreateTranslation(Vector3(-5, 0, -5)) * Matrix::CreateScale(Vector3(1.f, .2f, 1.f));
+
+	//float floatingY = (std::sin(context.GetTimer().GetTotalSeconds()) + 1) / 2 * .2f;
+	float floatingY = .2f;
+
+	m_pBasicEffect->SetDiffuseColor(SimpleMath::Vector3(0.0f, 0.0f, 0.0f));
+	m_pBasicEffect->SetTexture(m_textures[-2].Get());
+	//m_pBasicEffect->SetColorAndAlpha(Colors::White);
+	m_pBasicEffect->SetWorld(Matrix::CreateScale(Vector3(10.f, .18f, 10.f)));
+	m_pGeometricPrimitive->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
 
 	for (int iy = 0; iy < ROW; iy++)
 	{
 		for (int ix = 0; ix < COLUMN; ix++)
 		{
 			int& id = data[iy][ix];
+			m_pBasicEffect->SetDiffuseColor(SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
 			m_pBasicEffect->SetTexture(m_textures[id].Get());
-			m_pBasicEffect->SetWorld(Matrix::CreateScale(.95f) * mat * Matrix::CreateTranslation(Vector3(ix, 0, iy)));
-			//m_pBasicEffect->Apply(ctx);
+			m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(ix, 0, iy)));
 			m_pGeometricPrimitive->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
-			if (id == -1)
-			{
-				m_pBasicEffect->SetWorld(Matrix::CreateScale(.95f) * mat * Matrix::CreateTranslation(Vector3(ix, 1, iy)));
-				m_pGeometricPrimitive->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
-			}
+
+			m_pBasicEffect->SetDiffuseColor(id == -1 ? SimpleMath::Vector3(0.0f, 0.0f, 0.0f) : SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
+			m_pBasicEffect->SetTexture(m_textures[-2].Get());
+			m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(ix, floatingY, iy)));
+			m_pGeometricPrimitiveFloating->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
 		}
 	}
 }
