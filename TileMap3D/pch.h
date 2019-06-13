@@ -37,6 +37,7 @@
 #include <d3d11_1.h>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
+#include <DirectXCollision.h>
 
 // DXGI
 #if defined(NTDDI_WIN10_RS2)

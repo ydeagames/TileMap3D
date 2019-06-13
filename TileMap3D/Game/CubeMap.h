@@ -16,6 +16,8 @@ class CubeMap : public GameObject
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_pInputLayout;
 	// テクスチャ
 	std::unordered_map<int, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_textures;
+	// コライダー
+	DirectX::BoundingBox m_boundingBox;
 
 public:
 	CubeMap(const std::shared_ptr<TiledMap>& tiledMap, const std::shared_ptr<TiledMap>& tiledStone)
