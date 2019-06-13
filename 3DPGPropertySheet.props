@@ -10,9 +10,9 @@
   <!-- 共有設定 -->
   <PropertyGroup>
     <IncludePath>C:\DirectXTK\Inc;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="$(VisualStudioEdition.Contains('2015'))">C:\DirectXTK\Bin\Desktop_2015\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
-    <LibraryPath Condition="$(VisualStudioEdition.Contains('2017'))">C:\DirectXTK\Bin\Desktop_2017\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
-    <LibraryPath Condition="$(VisualStudioEdition.Contains('2019'))">C:\DirectXTK\Bin\Desktop_2019\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(PlatformToolset)'=='v140'">C:\DirectXTK\Bin\Desktop_2015\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(PlatformToolset)'=='v141'">C:\DirectXTK\Bin\Desktop_2017\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(PlatformToolset)'=='v142'">C:\DirectXTK\Bin\Desktop_2019\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
