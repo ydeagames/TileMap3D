@@ -135,4 +135,19 @@ void CubeMap::Render(GameContext & context)
 			}
 		}
 	}
+	{
+		auto mouse = Mouse::Get().GetState();
+		auto point = Vector2(float(mouse.x), float(mouse.y));
+		auto ray = context.GetCamera().ScreenPointToRay(Vector3(point));
+		float dist;
+		if (ray.Intersects(m_boundingBox, dist))
+		{
+			auto pos = ray.position + ray.direction * dist;
+
+			m_pBasicEffect->SetDiffuseColor(SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
+			m_pBasicEffect->SetTexture(m_textures[-2].Get());
+			m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(pos.x, floatingY, pos.z)));
+			m_pGeometricPrimitiveFloating->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
+		}
+	}
 }

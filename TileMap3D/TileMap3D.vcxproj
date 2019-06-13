@@ -183,6 +183,7 @@
     <ClInclude Include="Game\BaseScene.h" />
     <ClInclude Include="Game\BuildSettings.h" />
     <ClInclude Include="Game\CubeMap.h" />
+    <ClInclude Include="Game\Othello.h" />
     <ClInclude Include="Game\SceneCommons.h" />
     <ClInclude Include="Game\TiledMap.h" />
     <ClInclude Include="pch.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="Game\SceneCommons.cpp" />
     <ClCompile Include="Game\TiledMap.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Othello.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

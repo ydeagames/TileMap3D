@@ -21,7 +21,7 @@ void BaseScene::Build(GameContext& context)
 	tiledmap->Load(L"map.csv");
 	auto tiledstone = std::make_shared<TiledMap>();
 	tiledstone->Load(L"stone.csv");
-	//context << std::make_shared<CubeMap>(tiledmap, tiledstone);
+	context << std::make_shared<CubeMap>(tiledmap, tiledstone);
 
 	// レイのテスト
 	struct RayTest : public GameObject
@@ -62,5 +62,5 @@ void BaseScene::Build(GameContext& context)
 			m_batch->End();
 		}
 	};
-	context << std::make_shared<RayTest>();
+	//context << std::make_shared<RayTest>();
 }

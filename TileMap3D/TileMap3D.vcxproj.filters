@@ -83,6 +83,9 @@
     <ClInclude Include="Framework\GameCamera.h">
       <Filter>Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Othello.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -131,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="Framework\GameCamera.cpp">
       <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Othello.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
