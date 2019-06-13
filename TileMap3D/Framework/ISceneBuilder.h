@@ -3,6 +3,7 @@
 // 共通インクルード
 #include "GameContext.h"
 #include "GameObject.h"
+#include "GameCamera.h"
 
 class ISceneBuilder
 {

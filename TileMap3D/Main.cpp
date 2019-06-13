@@ -3,7 +3,7 @@
 //
 
 #include "pch.h"
-#include "Framework/Game.h"
+#include <Framework/Game.h>
 
 using namespace DirectX;
 

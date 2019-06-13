@@ -1,6 +1,7 @@
 #pragma once
-#include "Framework/GameObject.h"
-#include "Framework/GameContext.h"
+#include <Framework/GameObject.h>
+#include <Framework/GameContext.h>
+#include <Framework/GameCamera.h>
 
 class GeometricObject : public GameObject
 {

@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "GridFloorWrapper.h"
-#include "Framework/GameContext.h"
+#include <Framework/GameContext.h>
+#include <Framework/GameCamera.h>
 
 void GridFloorWrapper::Initialize(GameContext & context)
 {

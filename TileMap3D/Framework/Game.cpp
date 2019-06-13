@@ -4,7 +4,7 @@
 
 #include "pch.h"
 #include "Game.h"
-#include "Game/BuildSettings.h"
+#include <Game/BuildSettings.h>
 
 #include <WICTextureLoader.h>
 
@@ -211,6 +211,11 @@ void Game::CreateWindowSizeDependentResources()
 		0.01f,
 		10000.0f
 	);
+	// ビューポート行列を作成する
+	GetCamera().viewport = 
+		SimpleMath::Matrix::CreateScale(Vector3(.5f, -.5f, 1.f)) *
+		SimpleMath::Matrix::CreateTranslation(Vector3(.5f, .5f, 0.f)) *
+		SimpleMath::Matrix::CreateScale(Vector3(float(size.right), float(size.bottom), 1.f));
 }
 
 void Game::OnDeviceLost()

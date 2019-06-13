@@ -1,4 +1,4 @@
-﻿#include "Framework/GameObject.h"
+﻿#include <Framework/GameObject.h>
 #include "DebugCamera.h"
 
 class DebugCamera;

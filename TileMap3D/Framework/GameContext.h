@@ -1,20 +1,11 @@
 #pragma once
-#include "Common/StepTimer.h"
-#include "Common/DeviceResources.h"
-
-// カメラ取得
-class GameCamera
-{
-public:
-	// ビュー行列
-	DirectX::SimpleMath::Matrix view;
-	// プロジェクション行列
-	DirectX::SimpleMath::Matrix projection;
-};
+#include <Common/StepTimer.h>
+#include <Common/DeviceResources.h>
 
 class Scene;
 class GameObject;
 class SceneManager;
+class GameCamera;
 
 // GameContextインターフェイス
 class GameContext

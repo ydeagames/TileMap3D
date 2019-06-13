@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "DebugCameraWrapper.h"
-#include "Framework/GameContext.h"
+#include <Framework/GameContext.h>
+#include <Framework/GameCamera.h>
 
 void DebugCameraWrapper::Initialize(GameContext & context)
 {

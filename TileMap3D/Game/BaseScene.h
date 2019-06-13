@@ -1,5 +1,5 @@
 #pragma once
-#include "Framework/ISceneBuilder.h"
+#include <Framework/ISceneBuilder.h>
 
 // ゲームロジック
 class BaseScene : public ISceneBuilder

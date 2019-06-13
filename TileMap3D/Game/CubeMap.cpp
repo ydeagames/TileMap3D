@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CubeMap.h"
 #include <Framework/GameContext.h>
+#include <Framework/GameCamera.h>
 #include <GeometricPrimitive.h>
 
 using namespace DirectX;
@@ -110,7 +111,7 @@ void CubeMap::Render(GameContext & context)
 				int& id = data[iy][ix];
 				m_pBasicEffect->SetDiffuseColor(SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
 				m_pBasicEffect->SetTexture(m_textures[id].Get());
-				m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(ix, 0, iy)));
+				m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(float(ix), 0.f, float(iy))));
 				m_pGeometricPrimitive->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
 			}
 		}
@@ -128,7 +129,7 @@ void CubeMap::Render(GameContext & context)
 				{
 					m_pBasicEffect->SetDiffuseColor(id == 1 ? SimpleMath::Vector3(0.0f, 0.0f, 0.0f) : SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
 					m_pBasicEffect->SetTexture(m_textures[-2].Get());
-					m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(ix, floatingY, iy)));
+					m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(float(ix), floatingY, float(iy))));
 					m_pGeometricPrimitiveFloating->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
 				}
 			}

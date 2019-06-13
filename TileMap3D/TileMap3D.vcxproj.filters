@@ -80,6 +80,9 @@
     <ClInclude Include="Game\CubeMap.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\GameCamera.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -125,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="Game\CubeMap.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\GameCamera.cpp">
+      <Filter>Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
