@@ -51,14 +51,14 @@ public: // アクセッサ
 private: // サブ処理
 	void motion(int x, int y);
 
-private: // 変数
-
+public:
 	// 横回転
 	float m_yAngle;
 
 	// 縦回転
 	float m_xAngle;
 
+private: // 変数
 	// 前回のマウス座標
 	int m_prevX, m_prevY;
 
@@ -67,6 +67,8 @@ private: // 変数
 
 	// スクロールフォイール値
 	int m_scrollWheelValue;
+	// スクロールフォイール値
+	int m_zoom;
 
 	// 視点
 	DirectX::SimpleMath::Vector3 m_eye;

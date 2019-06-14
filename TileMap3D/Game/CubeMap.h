@@ -20,12 +20,13 @@ class CubeMap : public GameObject
 	// コライダー
 	DirectX::BoundingBox m_boundingBox;
 	// オセロ
-	std::unique_ptr<Othello> m_othello;
+	std::shared_ptr<Othello> m_othello;
 
 public:
-	CubeMap(const std::shared_ptr<TiledMap>& tiledMap, const std::shared_ptr<TiledMap>& tiledStone)
+	CubeMap(const std::shared_ptr<TiledMap>& tiledMap, const std::shared_ptr<TiledMap>& tiledStone, const std::shared_ptr<Othello>& othello)
 		: m_tiledMap(tiledMap)
-		, m_tiledStone(tiledStone) {}
+		, m_tiledStone(tiledStone)
+		, m_othello(othello) {}
 
 public:
 	// 生成

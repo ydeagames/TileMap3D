@@ -18,7 +18,6 @@ public:
 private:
 	// 盤のデータ(0:なし 1:黒コマ 2:白コマ)
 	TiledMap* m_board;
-	std::string msg;
 	int msg_wait;
 	int pieces[2];
 	int back;
@@ -29,6 +28,7 @@ private:
 	Optional<StonePosition> m_next;
 
 public:
+	std::wstring msg;
 	int m_turn;
 
 public:
@@ -44,5 +44,9 @@ public:
 	int checkResult();
 	void Initialize();
 	void Update();
+
+public:
+	using ThinkType = bool (Othello::*)(int);
+	ThinkType m_think[2];
 };
 

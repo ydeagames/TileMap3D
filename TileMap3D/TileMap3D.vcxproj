@@ -187,6 +187,7 @@
     <ClInclude Include="Game\ResultScene.h" />
     <ClInclude Include="Game\SceneCommons.h" />
     <ClInclude Include="Game\TiledMap.h" />
+    <ClInclude Include="Game\TitleScene.h" />
     <ClInclude Include="Utilities\AspectUtils.h" />
     <ClInclude Include="Utilities\Event.h" />
     <ClInclude Include="Utilities\Input.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="Game\ResultScene.cpp" />
     <ClCompile Include="Game\SceneCommons.cpp" />
     <ClCompile Include="Game\TiledMap.cpp" />
+    <ClCompile Include="Game\TitleScene.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game\Othello.cpp" />
     <ClCompile Include="pch.cpp">

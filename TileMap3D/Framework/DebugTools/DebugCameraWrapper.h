@@ -5,8 +5,13 @@ class DebugCamera;
 
 class DebugCameraWrapper : public GameObject
 {
+private:
 	// デバッグカメラ
 	std::unique_ptr<DebugCamera> m_pDebugCamera;
+public:
+	DebugCameraWrapper();
+	// Get
+	DebugCamera& GetDebugCamera();
 	// 生成
 	void Initialize(GameContext& context);
 	// 更新

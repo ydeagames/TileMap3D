@@ -5,6 +5,10 @@
 class ResultScene : public ISceneBuilder
 {
 public:
+	static int score_white;
+	static int score_black;
+
+public:
 	// ê∂ê¨
 	void Build(GameContext& context);
 };

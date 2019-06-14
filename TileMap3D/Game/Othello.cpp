@@ -5,6 +5,7 @@
 
 Othello::Othello(TiledMap* board)
 	: m_board(board)
+	, m_think{ &Othello::think1, &Othello::think3 }
 {
 }
 
@@ -94,10 +95,10 @@ bool Othello::think3(int turn) {
 }
 
 void Othello::setMsg(int turn, int type) {
-	std::string turn_str[] = { "BLACK", "WHITE", "DRAW" };
-	std::string type_str[] = { "TURN", "PASS", "WIN!" };
+	std::wstring turn_str[] = { L"BLACK", L"WHITE", L"DRAW" };
+	std::wstring type_str[] = { L"TURN", L"PASS", L"WIN!" };
 	msg = turn_str[turn - 1];
-	if (turn != 3) msg += " " + type_str[type];
+	if (turn != 3) msg += L" " + type_str[type];
 	msg_wait = 50;
 }
 
@@ -133,8 +134,7 @@ void Othello::Update()
 			status = 3;
 		}
 		else {
-			bool (Othello::*think[])(int) = { &Othello::think1, &Othello::think3 };
-			if ((this->*think[m_turn - 1])(m_turn)) {
+			if ((this->*m_think[m_turn - 1])(m_turn)) {
 				m_turn = 3 - m_turn; status = 2;
 				setMsg(m_turn, 0);
 			}

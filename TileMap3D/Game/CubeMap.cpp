@@ -17,8 +17,6 @@ void CubeMap::Initialize(GameContext& context)
 	m_pGeometricPrimitiveFloating = DirectX::GeometricPrimitive::CreateGeoSphere(ctx);
 
 	m_boundingBox = BoundingBox(Vector3::Zero, Vector3(8.f, .18f, 8.f));
-	m_othello = std::make_unique<Othello>(m_tiledStone.get());
-	m_othello->Initialize();
 
 	// BasicEffect
 	{

@@ -12,7 +12,7 @@ const float DebugCamera::DEFAULT_CAMERA_DISTANCE = 5.0f;
 
 // コンストラクタ
 DebugCamera::DebugCamera()
-	: m_yAngle(0.0f), m_xAngle(0.0f), m_prevX(0), m_prevY(0), m_scrollWheelValue(0)
+	: m_yAngle(0.0f), m_xAngle(0.0f), m_prevX(0), m_prevY(0), m_scrollWheelValue(0), m_zoom(-600)
 {
 }
 
@@ -32,7 +32,7 @@ void DebugCamera::update()
 	m_tracker.Update(state);
 
 	// マウスの左ボタンが押された
-	if (m_tracker.leftButton == DirectX::Mouse::ButtonStateTracker::ButtonState::PRESSED)
+	if (m_tracker.rightButton == DirectX::Mouse::ButtonStateTracker::ButtonState::PRESSED)
 	{
 		// マウスの座標を取得
 		m_prevX = state.x;
@@ -40,7 +40,7 @@ void DebugCamera::update()
 	}
 
 	// マウスのボタンが押されていたらカメラを移動させる
-	if (state.leftButton)
+	if (state.rightButton)
 	{
 		motion(state.x, state.y);
 	}
@@ -49,12 +49,12 @@ void DebugCamera::update()
 	m_prevY = state.y;
 
 	// マウスのフォイール値を取得
-	m_scrollWheelValue = state.scrollWheelValue;
-	if (m_scrollWheelValue > 0)
+	m_zoom += state.scrollWheelValue - m_scrollWheelValue;
+	if (m_zoom >= 500)
 	{
-		m_scrollWheelValue = 0;
-		DirectX::Mouse::Get().ResetScrollWheelValue();
+		m_zoom = 499;
 	}
+	m_scrollWheelValue = state.scrollWheelValue;
 
 	// ビュー行列を算出する
 	DirectX::SimpleMath::Matrix rotY = DirectX::SimpleMath::Matrix::CreateRotationY(m_yAngle);
@@ -67,7 +67,7 @@ void DebugCamera::update()
 	DirectX::SimpleMath::Vector3 up(0.0f, 1.0f, 0.0f);
 
 	eye = DirectX::SimpleMath::Vector3::Transform(eye, rt.Invert());
-	eye *= (DEFAULT_CAMERA_DISTANCE - m_scrollWheelValue / 100);
+	eye *= (DEFAULT_CAMERA_DISTANCE - m_zoom / 100);
 	up = DirectX::SimpleMath::Vector3::Transform(up, rt.Invert());
 
 	m_eye = eye;
