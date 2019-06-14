@@ -4,12 +4,20 @@
  */
 
 #pragma once
+#include "TiledMap.h"
+#include <Utilities/Optional.h>
 
 class Othello
 {
+public:
+	struct StonePosition
+	{
+		int x, y;
+	};
+
 private:
 	// 盤のデータ(0:なし 1:黒コマ 2:白コマ)
-	int board[8][8];
+	TiledMap* m_board;
 	std::string msg;
 	int msg_wait;
 	int pieces[2];
@@ -17,12 +25,17 @@ private:
 	// 1:プレイ中 2:TURNメッセージ中 3:パスメッセージ中 4:終了
 	int status;
 	// 1:黒ターン 2:白ターン
+	// 次の手
+	Optional<StonePosition> m_next;
+
+public:
 	int m_turn;
 
 public:
-	Othello();
+	Othello(TiledMap* board);
 	~Othello();
-	int putPiece(int x, int y, int turn, bool put_flag);
+	void Place(const StonePosition& pos) { m_next = pos; }
+	int putPiece(const StonePosition& pos, int turn, bool put_flag);
 	bool isPass(int turn);
 	bool think1(int turn);
 	bool think2(int turn);

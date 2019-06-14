@@ -1,6 +1,7 @@
 #pragma once
 #include <Framework/GameObject.h>
 #include "TiledMap.h"
+#include "Othello.h"
 
 class CubeMap : public GameObject
 {
@@ -18,6 +19,8 @@ class CubeMap : public GameObject
 	std::unordered_map<int, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_textures;
 	// コライダー
 	DirectX::BoundingBox m_boundingBox;
+	// オセロ
+	std::unique_ptr<Othello> m_othello;
 
 public:
 	CubeMap(const std::shared_ptr<TiledMap>& tiledMap, const std::shared_ptr<TiledMap>& tiledStone)

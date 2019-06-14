@@ -119,6 +119,9 @@
     <ClInclude Include="Utilities\Event.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="Game\ResultScene.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -182,6 +185,9 @@
     </ClCompile>
     <ClCompile Include="Utilities\Input.cpp">
       <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResultScene.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

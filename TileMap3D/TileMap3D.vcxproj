@@ -184,6 +184,7 @@
     <ClInclude Include="Game\BuildSettings.h" />
     <ClInclude Include="Game\CubeMap.h" />
     <ClInclude Include="Game\Othello.h" />
+    <ClInclude Include="Game\ResultScene.h" />
     <ClInclude Include="Game\SceneCommons.h" />
     <ClInclude Include="Game\TiledMap.h" />
     <ClInclude Include="Utilities\AspectUtils.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Game\BaseScene.cpp" />
     <ClCompile Include="Game\BuildSettings.cpp" />
     <ClCompile Include="Game\CubeMap.cpp" />
+    <ClCompile Include="Game\ResultScene.cpp" />
     <ClCompile Include="Game\SceneCommons.cpp" />
     <ClCompile Include="Game\TiledMap.cpp" />
     <ClCompile Include="Main.cpp" />

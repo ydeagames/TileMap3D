@@ -23,6 +23,35 @@ void BaseScene::Build(GameContext& context)
 	tiledstone->Load(L"stone.csv");
 	context << std::make_shared<CubeMap>(tiledmap, tiledstone);
 
+	struct ResultListener : public GameObject
+	{
+		std::shared_ptr<TiledMap> tiledstone;
+
+		ResultListener(std::shared_ptr<TiledMap> tiledstone)
+			: tiledstone(tiledstone) {}
+
+		void Update(GameContext& ctx)
+		{
+			bool flag = true;
+
+			int row = tiledstone->GetRow();
+			int column = tiledstone->GetColumn();
+			auto& data = tiledstone->GetData();
+			for (int iy = 0; iy < row; iy++)
+			{
+				for (int ix = 0; ix < column; ix++)
+				{
+					int& id = data[iy][ix];
+					if (id == 0)
+						flag = false;
+				}
+			}
+			
+			if (flag)
+				ctx.GetSceneManager().LoadScene("ResultScene");
+		}
+	};
+
 	// レイのテスト
 	struct RayTest : public GameObject
 	{

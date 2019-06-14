@@ -3,7 +3,8 @@
 #include <Utilities/Input.h>
 #include <Utilities/Random.h>
 
-Othello::Othello()
+Othello::Othello(TiledMap* board)
+	: m_board(board)
 {
 }
 
@@ -13,13 +14,14 @@ Othello::~Othello()
 }
 
 
-int Othello::putPiece(int x, int y, int turn, bool put_flag) {
+int Othello::putPiece(const StonePosition& pos, int turn, bool put_flag) {
+	auto& board = m_board->GetData();
 	int sum = 0;
-	if (board[y][x] > 0) return 0;
+	if (board[pos.y][pos.x] > 0) return 0;
 	for (int dy = -1; dy <= 1; dy++) for (int dx = -1; dx <= 1; dx++) {
 		int wx[8], wy[8];
 		for (int wn = 0;; wn++) {
-			int kx = x + dx * (wn + 1); int ky = y + dy * (wn + 1);
+			int kx = pos.x + dx * (wn + 1); int ky = pos.y + dy * (wn + 1);
 			if (kx < 0 || kx > 7 || ky < 0 || ky > 7 || board[ky][kx] == 0) break;
 			if (board[ky][kx] == turn) {
 				if (put_flag) for (int i = 0; i < wn; i++) board[wy[i]][wx[i]] = turn;
@@ -29,40 +31,40 @@ int Othello::putPiece(int x, int y, int turn, bool put_flag) {
 			wx[wn] = kx; wy[wn] = ky;
 		}
 	}
-	if (sum > 0 && put_flag) board[y][x] = turn;
+	if (sum > 0 && put_flag)
+		board[pos.y][pos.x] = turn;
 	return sum;
 }
 
 bool Othello::isPass(int turn) {
 	for (int y = 0; y < 8; y++) for (int x = 0; x < 8; x++) {
-		if (putPiece(x, y, turn, false)) return false;
+		if (putPiece(StonePosition{ x, y }, turn, false)) return false;
 	}
 	return true;
 }
 
 bool Othello::think1(int turn) {
-	static bool mouse_flag = false;
-	if (Input::GetMouseButtonDown(Input::Buttons::MouseLeft)) {
-		if (!mouse_flag) {
-			mouse_flag = true;
-			auto mouse = Input::GetMousePosition();
-			if (putPiece(int(mouse.x) / 48, int(mouse.y) / 48, turn, true)) return true;
+	if (m_next)
+	{
+		if (putPiece(*m_next, turn, true))
+		{
+			m_next = nullptr;
+			return true;
 		}
 	}
-	else mouse_flag = false;
 	return false;
 }
 
 
 bool Othello::think2(int turn) {
-	int max = 0, wx, wy;
+	int max = 0, wx = 0, wy = 0;
 	for (int y = 0; y < 8; y++) for (int x = 0; x < 8; x++) {
-		int num = putPiece(x, y, turn, false);
+		int num = putPiece(StonePosition{ x, y }, turn, false);
 		if (max < num || (max == num && Random::Rand(1) == 0)) {
 			max = num; wx = x; wy = y;
 		}
 	}
-	putPiece(wx, wy, turn, true);
+	putPiece(StonePosition{ wx, wy }, turn, true);
 	return true;
 }
 
@@ -77,17 +79,17 @@ bool Othello::think3(int turn) {
 	  {6, 6, 5, 4, 4, 5, 6, 6},
 	  {0, 6, 2, 1, 1, 2, 6, 0},
 	};
-	int max = 0, wx, wy;
+	int max = 0, wx = 0, wy = 0;
 	for (int p = 0; p <= 6 && max == 0; p++) {
 		for (int y = 0; y < 8; y++) for (int x = 0; x < 8; x++) {
 			if (priority[y][x] != p) continue;
-			int num = putPiece(x, y, turn, false);
+			int num = putPiece(StonePosition{ x, y }, turn, false);
 			if (max < num || (max == num && Random::Rand(1) == 0)) {
 				max = num; wx = x; wy = y;
 			}
 		}
 	}
-	putPiece(wx, wy, turn, true);
+	putPiece(StonePosition{ wx, wy }, turn, true);
 	return true;
 }
 
@@ -100,6 +102,7 @@ void Othello::setMsg(int turn, int type) {
 }
 
 int Othello::checkResult() {
+	auto& board = m_board->GetData();
 	int pnum[2] = {};
 	int result = 0;
 	for (int y = 0; y < 8; y++) for (int x = 0; x < 8; x++) {
@@ -130,7 +133,7 @@ void Othello::Update()
 			status = 3;
 		}
 		else {
-			bool (Othello::*think[])(int) = { &Othello::think1, &Othello::think2 };
+			bool (Othello::*think[])(int) = { &Othello::think1, &Othello::think3 };
 			if ((this->*think[m_turn - 1])(m_turn)) {
 				m_turn = 3 - m_turn; status = 2;
 				setMsg(m_turn, 0);
