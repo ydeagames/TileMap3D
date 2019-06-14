@@ -1,6 +1,7 @@
 #include "pch.h"
-#include "Game\Othello.h"
-
+#include "Othello.h"
+#include <Utilities/Input.h>
+#include <Utilities/Random.h>
 
 Othello::Othello()
 {
@@ -41,12 +42,11 @@ bool Othello::isPass(int turn) {
 
 bool Othello::think1(int turn) {
 	static bool mouse_flag = false;
-	if (GetMouseInput() & MOUSE_INPUT_LEFT) {
+	if (Input::GetMouseButtonDown(Input::Buttons::MouseLeft)) {
 		if (!mouse_flag) {
 			mouse_flag = true;
-			int mx, my;
-			GetMousePoint(&mx, &my);
-			if (putPiece(mx / 48, my / 48, turn, true)) return true;
+			auto mouse = Input::GetMousePosition();
+			if (putPiece(int(mouse.x) / 48, int(mouse.y) / 48, turn, true)) return true;
 		}
 	}
 	else mouse_flag = false;
@@ -58,7 +58,7 @@ bool Othello::think2(int turn) {
 	int max = 0, wx, wy;
 	for (int y = 0; y < 8; y++) for (int x = 0; x < 8; x++) {
 		int num = putPiece(x, y, turn, false);
-		if (max < num || (max == num && GetRand(1) == 0)) {
+		if (max < num || (max == num && Random::Rand(1) == 0)) {
 			max = num; wx = x; wy = y;
 		}
 	}
@@ -80,9 +80,9 @@ bool Othello::think3(int turn) {
 	int max = 0, wx, wy;
 	for (int p = 0; p <= 6 && max == 0; p++) {
 		for (int y = 0; y < 8; y++) for (int x = 0; x < 8; x++) {
-			if (priority?[y][x] != p) continue;
+			if (priority[y][x] != p) continue;
 			int num = putPiece(x, y, turn, false);
-			if (max < num || (max == num && GetRand(1) == 0)) {
+			if (max < num || (max == num && Random::Rand(1) == 0)) {
 				max = num; wx = x; wy = y;
 			}
 		}
@@ -117,23 +117,23 @@ int Othello::checkResult() {
 void Othello::Initialize()
 {
 	status = 2;
-	turn = 1;
-	setMsg(turn, 0);
+	m_turn = 1;
+	setMsg(m_turn, 0);
 }
 
 void Othello::Update()
 {
 	switch (status) {
 	case 1:
-		if (isPass(turn)) {
-			setMsg(turn, 1);
+		if (isPass(m_turn)) {
+			setMsg(m_turn, 1);
 			status = 3;
 		}
 		else {
-			bool (*think[])(int) = { think1, think2 };
-			if ((*think[turn - 1])(turn)) {
-				turn = 3 - turn; status = 2;
-				setMsg(turn, 0);
+			bool (Othello::*think[])(int) = { &Othello::think1, &Othello::think2 };
+			if ((this->*think[m_turn - 1])(m_turn)) {
+				m_turn = 3 - m_turn; status = 2;
+				setMsg(m_turn, 0);
 			}
 		}
 		if (checkResult()) status = 4;
@@ -145,8 +145,8 @@ void Othello::Update()
 	case 3:
 		if (msg_wait > 0) msg_wait--;
 		else {
-			turn = 3 - turn; status = 2;
-			setMsg(turn, 0);
+			m_turn = 3 - m_turn; status = 2;
+			setMsg(m_turn, 0);
 		}
 		break;
 	}

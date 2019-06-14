@@ -81,9 +81,6 @@ private:
 	// キーボード
 	std::unique_ptr<DirectX::Keyboard>		m_pKeyboard;
 
-	// キーボードトラッカー
-	std::unique_ptr<DirectX::Keyboard::KeyboardStateTracker>		m_pKeyboardStateTracker;
-
 public:
 	// DeviceResource取得
 	DX::DeviceResources& GetDR()
@@ -113,12 +110,6 @@ public:
 	DirectX::EffectFactory& GetEffectFactory()
 	{
 		return *m_effectFactory;
-	}
-
-	// キーボードステートトラッカー
-	DirectX::Keyboard::KeyboardStateTracker& GetKeyboardStateTracker()
-	{
-		return *m_pKeyboardStateTracker;
 	}
 
 	// シーン

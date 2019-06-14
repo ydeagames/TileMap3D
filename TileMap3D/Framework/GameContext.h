@@ -25,8 +25,6 @@ public:
 	virtual DirectX::CommonStates& GetStates() = 0;
 	// エフェクトファクトリー取得
 	virtual DirectX::EffectFactory& GetEffectFactory() = 0;
-	// キーボードステートトラッカー
-	virtual DirectX::Keyboard::KeyboardStateTracker& GetKeyboardStateTracker() = 0;
 	// シーンを取得
 	virtual Scene& GetScene() = 0;
 	// シーンにオブジェクトを追加

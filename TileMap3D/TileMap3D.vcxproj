@@ -186,7 +186,17 @@
     <ClInclude Include="Game\Othello.h" />
     <ClInclude Include="Game\SceneCommons.h" />
     <ClInclude Include="Game\TiledMap.h" />
+    <ClInclude Include="Utilities\AspectUtils.h" />
+    <ClInclude Include="Utilities\Event.h" />
+    <ClInclude Include="Utilities\Input.h" />
+    <ClInclude Include="Utilities\MathUtils.h" />
+    <ClInclude Include="Utilities\MemoryLeakDetector.h" />
+    <ClInclude Include="Utilities\Optional.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Utilities\picojson.h" />
+    <ClInclude Include="Utilities\Random.h" />
+    <ClInclude Include="Utilities\Singleton.h" />
+    <ClInclude Include="Utilities\String.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\DeviceResources.cpp" />
@@ -205,13 +215,17 @@
     <ClCompile Include="Game\SceneCommons.cpp" />
     <ClCompile Include="Game\TiledMap.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Othello.cpp" />
+    <ClCompile Include="Game\Othello.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Utilities\AspectUtils.cpp" />
+    <ClCompile Include="Utilities\Input.cpp" />
+    <ClCompile Include="Utilities\MathUtils.cpp" />
+    <ClCompile Include="Utilities\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\Icons\resource.rc" />
@@ -221,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="Resources\settings.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\3DPGPropertySheet.props" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

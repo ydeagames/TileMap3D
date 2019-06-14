@@ -56,6 +56,9 @@
 #include <iostream>
 #include <iomanip>
 
+#include <algorithm>
+#include <random>
+
 #include <vector>
 #include <list>
 #include <unordered_map>

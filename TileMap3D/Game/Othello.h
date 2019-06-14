@@ -17,7 +17,7 @@ private:
 	// 1:プレイ中 2:TURNメッセージ中 3:パスメッセージ中 4:終了
 	int status;
 	// 1:黒ターン 2:白ターン
-	int turn;
+	int m_turn;
 
 public:
 	Othello();
