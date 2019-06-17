@@ -97,6 +97,7 @@ void CubeMap::Render(GameContext & context)
 	//float floatingY = (std::sin(context.GetTimer().GetTotalSeconds()) + 1) / 2 * .2f;
 	float floatingY = .2f;
 
+	m_pBasicEffect->SetAlpha(1.f);
 	m_pBasicEffect->SetDiffuseColor(SimpleMath::Vector3(0.0f, 0.0f, 0.0f));
 	m_pBasicEffect->SetTexture(m_textures[-2].Get());
 	//m_pBasicEffect->SetColorAndAlpha(Colors::White);
@@ -112,6 +113,7 @@ void CubeMap::Render(GameContext & context)
 			for (int ix = 0; ix < column; ix++)
 			{
 				int& id = data[iy][ix];
+				m_pBasicEffect->SetAlpha(1.f);
 				m_pBasicEffect->SetDiffuseColor(SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
 				m_pBasicEffect->SetTexture(m_textures[id].Get());
 				m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(float(ix), 0.f, float(iy))));
@@ -130,10 +132,19 @@ void CubeMap::Render(GameContext & context)
 				int& id = data[iy][ix];
 				if (id != 0)
 				{
+					m_pBasicEffect->SetAlpha(1.f);
 					m_pBasicEffect->SetDiffuseColor(id == 1 ? SimpleMath::Vector3(0.0f, 0.0f, 0.0f) : SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
 					m_pBasicEffect->SetTexture(m_textures[-2].Get());
 					m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(float(ix), floatingY, float(iy))));
 					m_pGeometricPrimitiveFloating->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
+				}
+				if (m_othello->putPiece(Othello::StonePosition{ ix, iy }, m_othello->m_turn, false))
+				{
+					m_pBasicEffect->SetAlpha(.1f);
+					m_pBasicEffect->SetDiffuseColor(m_othello->m_turn == 1 ? SimpleMath::Vector3(0.0f, 0.0f, 0.0f) : SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
+					m_pBasicEffect->SetTexture(m_textures[-2].Get());
+					m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(float(ix), floatingY, float(iy))));
+					m_pGeometricPrimitiveFloating->Draw(m_pBasicEffect.get(), m_pInputLayout.Get(), true, true);
 				}
 			}
 		}
@@ -157,10 +168,11 @@ void CubeMap::Render(GameContext & context)
 
 			auto pos1 = Vector3(float(stonePos.x), raypos.y, float(stonePos.y));
 
+			m_pBasicEffect->SetAlpha(.6f);
 			m_pBasicEffect->SetDiffuseColor(m_othello->m_turn == 1 ? SimpleMath::Vector3(0.0f, 0.0f, 0.0f) : SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
 			m_pBasicEffect->SetTexture(m_textures[-2].Get());
 			m_pBasicEffect->SetWorld(Matrix::CreateScale(.98f) * mat * Matrix::CreateTranslation(Vector3(pos1.x, floatingY, pos1.z)));
-			m_pGeometricPrimitiveFloating->Draw(m_pBasicEffect.get(), m_pInputLayout.Get());
+			m_pGeometricPrimitiveFloating->Draw(m_pBasicEffect.get(), m_pInputLayout.Get(), true, true);
 		}
 	}
 }
